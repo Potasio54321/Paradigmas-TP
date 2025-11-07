@@ -1,7 +1,12 @@
 package artista;
 
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
+
 import roles.Roles;
+import utiles.Contador;
+import utiles.Costo;
 /*
  * músico o técnico que puede desempeñar un rol por canción, de varios roles. 
  * Cada artista tiene: nombre, lista de roles que ha ocupado históricamente, 
@@ -10,13 +15,13 @@ import roles.Roles;
  * a tocar en un mismo recital (si es artista contratado). Un artista solo puede ser 
  * asignado a roles que haya desempeñado históricamente.
  */
-public class ArtistaBase {
+public class Artista {
 	private String nombreArtista;
 	private HashSet<String> bandasHistorico;
 	private HashSet<Roles> rolesHistorico;
 	private Costo costo;//Esto maneja los costos.
 	private Contador cantidadCanciones;//Esto maneja la cantidad de canciones
-	public ArtistaBase(String nombreArtista,int cantMaximaCanciones,float costo) {
+	public Artista(String nombreArtista,int cantMaximaCanciones,float costo) {
 		this.nombreArtista = nombreArtista;
 		this.bandasHistorico = new HashSet<String>();
 		this.rolesHistorico = new HashSet<Roles>();
@@ -44,25 +49,43 @@ public class ArtistaBase {
 
 		return representacion.toString();
 	}
-
+	///Relacionado con la bandas
 	public void setBandasHistorico(String... bandas) {
 		for (String banda : bandas)
 			this.bandasHistorico.add(banda);
 	}
 
+	public boolean participoConArtista(Artista otro) {
+		boolean noHayElementosEnComun=Collections.disjoint(bandasHistorico, otro.bandasHistorico);
+		return !noHayElementosEnComun;
+	}
+	///Relacionadas la Cantidad de canciones
+	public void darCancion() {
+		cantidadCanciones.contar();
+	}
+	public boolean puedeTocar() {
+		return cantidadCanciones.estaMaximo();
+	}
+	///Relacionadas Al Rol
 	public void setRolesHistorico(Roles... roles) {
 		for (Roles rol : roles)
 			this.rolesHistorico.add(rol);
 	}
-
-	public boolean participoEnBanda(String banda) {
-		return bandasHistorico.contains(banda);
-	}
-
 	public boolean tieneRol(Roles rol) {
 		return rolesHistorico.contains(rol);
 	}
-	public double darCostoActual() {
-		return this.costo.getCosto()*this.cantidadCanciones.getNumActual();
+	public boolean tieneRoles(Set<Roles> roles) {
+		boolean noHayElementosEnComun=Collections.disjoint(rolesHistorico, roles);
+		return !noHayElementosEnComun;
+	}
+	///Relacionadas Al Coste
+	public double darCosto() {
+		return this.costo.getCosto();
+	}
+	public void aplicarDescuento() {
+		this.costo.aplicarDescuento();
+	}
+	public void quitarDescuento() {
+		this.costo.quitarDescuento();;
 	}
 }

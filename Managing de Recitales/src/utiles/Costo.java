@@ -1,4 +1,4 @@
-package artista;
+package utiles;
 /*
  * Cada artista candidato tiene un costo de contratación. 
  * Si algún artista base comparte historial de haber pertenecido 
@@ -14,6 +14,8 @@ public class Costo {
 		tieneDescuento=false;
 	}
 	public double getCosto() {
+		if(tieneDescuento)
+			return costo*PORCENTAJE_DESCUENTO;
 		return costo;
 	}
 	public boolean getTieneDescuento() {
@@ -22,7 +24,11 @@ public class Costo {
 	public void aplicarDescuento() {
 		if(!tieneDescuento) {
 			tieneDescuento=true;
-			costo*=PORCENTAJE_DESCUENTO;
+		}
+	}
+	public void quitarDescuento() {
+		if(tieneDescuento) {
+			tieneDescuento=false;
 		}
 	}
 }

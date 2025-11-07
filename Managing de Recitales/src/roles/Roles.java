@@ -11,7 +11,6 @@ public enum Roles {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return nombreRol;
 	}
 }	

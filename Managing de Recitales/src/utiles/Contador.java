@@ -1,4 +1,4 @@
-package artista;
+package utiles;
 
 public class Contador {
 	private int numActual;
@@ -7,12 +7,14 @@ public class Contador {
 		this.numMax=numMax;
 		this.numActual=0;
 	}
-	public boolean contar() {
+	public void contar() {
 		if(numActual<numMax)
 			numActual++;
-		return numActual==numMax;
 	}
 	public int getNumActual() {
 		return numActual;
+	}
+	public boolean estaMaximo() {
+		return numActual==numMax;
 	}
 }
