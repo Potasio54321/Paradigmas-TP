@@ -2,6 +2,7 @@ package artista;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import roles.Roles;
@@ -64,8 +65,25 @@ public class Artista {
 		cantidadCanciones.contar();
 	}
 	public boolean puedeTocar() {
-		return cantidadCanciones.estaMaximo();
+		return !cantidadCanciones.estaMaximo();
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(nombreArtista);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Artista other = (Artista) obj;
+		return Objects.equals(nombreArtista, other.nombreArtista);
+	}
+
 	///Relacionadas Al Rol
 	public void setRolesHistorico(Roles... roles) {
 		for (Roles rol : roles)

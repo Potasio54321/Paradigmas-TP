@@ -5,9 +5,9 @@ import java.util.Scanner;
 import grafico.Graficos;
 
 public class App {
-	//Atributos
-	//Scanner
-	//Recital
+	// Atributos
+	// Scanner
+	// Recital
 	public static void main(String[] args) {
 		// Inicializar
 		Scanner entrada = new Scanner(System.in);
@@ -24,13 +24,17 @@ public class App {
 		/// Cierre
 		entrada.close();
 	}
+
 	public static void ClearConsole() {
-		//Esta horrible esto pero es lo unico que funciona
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    }
+		// Esta horrible esto pero es lo unico que funciona
+		System.out.println(
+				"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+	}
+
 	private static void esperar(Scanner entrada) {
 		entrada.nextLine();
 	}
+
 	private static void hacerAccion(int opcionElegida) {
 		switch (opcionElegida) {
 		case 1:

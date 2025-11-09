@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-public class OptimizadorCanciones {
+class OptimizadorCanciones {
 	
 	public static void optimizarCancion(LinkedList<Artista> artistas, Cancion cancion) {
 		// TO DO : ordenarlos asi se recorre mas facil
@@ -35,7 +35,7 @@ public class OptimizadorCanciones {
 
 	private static LinkedList<Artista> filtrarArtistas(LinkedList<Artista> artistas, Set<Roles> rolesNecesarios) {
 		LinkedList<Artista> artistasUsables = new LinkedList<Artista>(artistas);
-		artistasUsables.removeIf(a -> !a.tieneRoles(rolesNecesarios));
+		artistasUsables.removeIf(a -> !a.puedeTocar()&&!a.tieneRoles(rolesNecesarios));
 		return artistasUsables;
 	}
 

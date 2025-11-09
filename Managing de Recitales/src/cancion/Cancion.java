@@ -8,23 +8,32 @@ import roles.Roles;
 import utiles.ListaLimitada;
 import artista.Artista;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Cancion {
 	private String nombre;
+	private boolean fueOptimizada;
 	protected double costo;
 	protected HashMap<Roles, ListaLimitada<Artista>> rolesNecesarios;
-
+	
 	public Cancion(String nombre) {
 		this.nombre = nombre;
 		this.costo=0;
+		fueOptimizada=false;
 		this.rolesNecesarios = new HashMap<Roles, ListaLimitada<Artista>>();
 	}
-
+	@Override
+		public String toString() {
+			return this.nombre+costo+cantidadRolesNecesarios();
+		}
 	public void setRolesNecesarios(Roles rol, int cant) {
 		ListaLimitada<Artista> nuevoPodio = new ListaLimitada<Artista>(cant);
 		rolesNecesarios.put(rol,nuevoPodio);
 	}
-
+	public void optimizarCancion(LinkedList<Artista> artistas) {
+		if(!fueOptimizada)
+			OptimizadorCanciones.optimizarCancion(artistas,this);
+	}
 	public int cantidadRolesNecesarios() {
 		int acum = 0;
 		for (ListaLimitada<Artista> podio : rolesNecesarios.values()) {
