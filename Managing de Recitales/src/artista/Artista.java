@@ -96,6 +96,25 @@ public class Artista {
 		boolean noHayElementosEnComun=Collections.disjoint(rolesHistorico, roles);
 		return !noHayElementosEnComun;
 	}
+	public boolean entrenar(Roles nuevoRol) {
+	    // No entrenar si ya tiene el rol
+	    if (rolesHistorico.contains(nuevoRol))
+	        return false;
+
+	    // No entrenar si ya fue contratado en alguna canción
+	    if (cantidadCanciones.getNumActual() > 0)
+	        return false;
+
+	    // Aumentar costo
+	    double nuevoCosto = this.costo.getCosto() * 1.5;
+	    this.costo = new Costo(nuevoCosto);
+
+	    // Agregar nuevo rol
+	    this.rolesHistorico.add(nuevoRol);
+	    return true;
+	}
+
+	
 	///Relacionadas Al Coste
 	public double darCosto() {
 		return this.costo.getCosto();

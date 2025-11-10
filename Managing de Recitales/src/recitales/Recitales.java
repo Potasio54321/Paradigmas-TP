@@ -39,4 +39,15 @@ public class Recitales {
 	public void darCancion(Cancion cancion) {
 		canciones.add(cancion);
 	}
+	public String listarArtistasContratados() {
+	    StringBuilder sb = new StringBuilder();
+	    sb.append("--- Artistas Contratados ---\n");
+	    for (Artista artista : artistas) {
+	        sb.append(artista.toString())
+	          .append("\nCosto por cancion: ").append(artista.darCosto())
+	          .append("\nCanciones asignadas: ").append(artista.cantidadCanciones.getNumActual())
+	          .append("\n--------------------------\n");
+	    }
+	    return sb.toString();
+	}
 }

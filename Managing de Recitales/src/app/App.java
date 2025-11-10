@@ -54,6 +54,7 @@ public class App {
 			break;
 		case 6:
 			System.out.println("Estoy Listando Artistas");
+			System.out.println(recital.listarArtistasContratados());
 			break;
 		case 7:
 			System.out.println("Estoy Listando Canciones");
