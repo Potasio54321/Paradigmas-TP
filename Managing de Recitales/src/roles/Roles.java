@@ -9,8 +9,8 @@ public enum Roles {
     VOZ_PRINCIPAL(8, "Voz Principal"),
     DJ(16, "DJ"),
     CORO(32, "Coro"),
-    BAJISTA(64, "Bajista");
-
+    BAJISTA(64, "Bajista"),
+	GUITARRA_ELECTRICA(128,"Guitarra Eléctrica");
     private final String nombreRol;
     private final int flag;
 

@@ -30,6 +30,13 @@ public class Cancion {
 		ListaLimitada<Artista> nuevoPodio = new ListaLimitada<Artista>(cant);
 		rolesNecesarios.put(rol,nuevoPodio);
 	}
+	public void setRolesNecesarios(HashMap<Roles, Integer> roles) {
+		for(Roles r:roles.keySet()) {
+			ListaLimitada<Artista> nuevaLista = new ListaLimitada<Artista>(roles.get(r));
+			rolesNecesarios.put(r,nuevaLista);
+		}
+		
+	}
 	public void optimizarCancion(LinkedList<Artista> artistas) {
 		if(!fueOptimizada)
 			OptimizadorCanciones.optimizarCancion(artistas,this);

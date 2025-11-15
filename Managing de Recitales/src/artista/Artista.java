@@ -1,5 +1,6 @@
 package artista;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Collections;
@@ -123,6 +124,7 @@ public class Artista {
 	}
 
 	/// Relacionado con la bandas
+	@JsonIgnore
 	public void setBandasHistorico(String... bandas) {
 		for (String banda : bandas)
 			this.bandasHistorico.add(banda);
@@ -143,6 +145,7 @@ public class Artista {
 	}
 
 	/// Relacionadas Al Rol
+	@JsonIgnore
 	public void setRolesHistorico(Roles... roles) {
 		for (Roles rol : roles)
 			this.rolesHistorico.add(rol);
