@@ -16,11 +16,17 @@ public class Recitales {
 	public void optimizarCancion(int index) {
 		Cancion cancionAOptimizar=canciones.get(index);		
 		cancionAOptimizar.optimizarCancion(artistas);
+		for(Artista artista:artistas) {
+			artista.quitarDescuento();
+		}
 	}
 
 	public void optimizarRecital() {
 		for(Cancion cancion:canciones) {
 			cancion.optimizarCancion(artistas);
+		}
+		for(Artista artista:artistas) {
+			artista.quitarDescuento();
 		}
 	}
 	public String listarEstadoCanciones() {
@@ -41,12 +47,8 @@ public class Recitales {
 	}
 	public String listarArtistasContratados() {
 	    StringBuilder sb = new StringBuilder();
-	    sb.append("--- Artistas Contratados ---\n");
 	    for (Artista artista : artistas) {
-	        sb.append(artista.toString())
-	          .append("\nCosto por cancion: ").append(artista.darCosto())
-	          .append("\nCanciones asignadas: ").append(artista.cantidadCanciones.getNumActual())
-	          .append("\n--------------------------\n");
+	    	sb.append(artista+"\n");
 	    }
 	    return sb.toString();
 	}

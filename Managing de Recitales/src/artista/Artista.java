@@ -2,7 +2,6 @@ package artista;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -11,6 +10,7 @@ import java.util.Set;
 import roles.Roles;
 import utiles.Contador;
 import utiles.Costo;
+
 /*
  * músico o técnico que puede desempeñar un rol por canción, de varios roles. 
  * Cada artista tiene: nombre, lista de roles que ha ocupado históricamente, 
@@ -21,61 +21,90 @@ import utiles.Costo;
  */
 public class Artista {
 	@JsonProperty("nombre")
-    private String nombreArtista;
-    @JsonProperty("bandas")
-    private HashSet<String> bandasHistorico;
-    @JsonProperty("roles")
-    private HashSet<Roles> rolesHistorico;
-    @JsonProperty("maxCanciones")
-    private Contador cantidadCanciones;
-    @JsonProperty("costo")
-    private Costo costo;
+	private String nombreArtista;
+	@JsonProperty("bandas")
+	private HashSet<String> bandasHistorico;
+	@JsonProperty("roles")
+	private HashSet<Roles> rolesHistorico;
+	@JsonProperty("maxCanciones")
+	private Contador cantidadCanciones;
+	@JsonProperty("costo")
+	private Costo costo;
 
 	/// Usado por Jackson
-    public Artista(){
-        this.bandasHistorico = new HashSet<>();
-        this.rolesHistorico = new HashSet<>();
-    }
+	public Artista() {
+		this.bandasHistorico = new HashSet<>();
+		this.rolesHistorico = new HashSet<>();
+	}
 
-	public Artista(String nombreArtista,int cantMaximaCanciones,float costo) {
+	public Artista(String nombreArtista, int cantMaximaCanciones, float costo) {
 		this.nombreArtista = nombreArtista;
 		this.bandasHistorico = new HashSet<String>();
 		this.rolesHistorico = new HashSet<Roles>();
-		this.cantidadCanciones=new Contador(cantMaximaCanciones);
-		this.costo=new Costo(costo);
+		this.cantidadCanciones = new Contador(cantMaximaCanciones);
+		this.costo = new Costo(costo);
 	}
-	    /// Getters y Setters 100% requeridos para Jackson
-    public String getNombreArtista() { return nombreArtista; }
-    public void setNombreArtista(String nombreArtista) { this.nombreArtista = nombreArtista; }
 
-    public HashSet<String> getBandasHistorico() { return bandasHistorico; }
-    public void setBandasHistorico(HashSet<String> bandasHistorico) { this.bandasHistorico = bandasHistorico; }
+	/// Getters y Setters 100% requeridos para Jackson
+	public String getNombreArtista() {
+		return nombreArtista;
+	}
 
-    public HashSet<Roles> getRolesHistorico() { return rolesHistorico; }
-    public void setRolesHistorico(HashSet<Roles> rolesHistorico) { this.rolesHistorico = rolesHistorico; }
+	public void setNombreArtista(String nombreArtista) {
+		this.nombreArtista = nombreArtista;
+	}
 
-    public Costo getCosto() { return costo; }
-    public void setCosto(Costo costo) { this.costo = costo; }
+	public HashSet<String> getBandasHistorico() {
+		return bandasHistorico;
+	}
 
-    public Contador getCantidadCanciones() { return cantidadCanciones; }
-    public void setCantidadCanciones(Contador cantidadCanciones) { this.cantidadCanciones = cantidadCanciones; }
+	public void setBandasHistorico(HashSet<String> bandasHistorico) {
+		this.bandasHistorico = bandasHistorico;
+	}
+
+	public HashSet<Roles> getRolesHistorico() {
+		return rolesHistorico;
+	}
+
+	public void setRolesHistorico(HashSet<Roles> rolesHistorico) {
+		this.rolesHistorico = rolesHistorico;
+	}
+
+	public Costo getCosto() {
+		return costo;
+	}
+
+	public void setCosto(Costo costo) {
+		this.costo = costo;
+	}
+
+	public Contador getCantidadCanciones() {
+		return cantidadCanciones;
+	}
+
+	public void setCantidadCanciones(Contador cantidadCanciones) {
+		this.cantidadCanciones = cantidadCanciones;
+	}
 
 	@Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Artista artista = (Artista) o;
-        return Objects.equals(this.nombreArtista, artista.nombreArtista);
-    }
+	public boolean equals(Object o) {
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Artista artista = (Artista) o;
+		return Objects.equals(this.nombreArtista, artista.nombreArtista);
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(this.nombreArtista);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(this.nombreArtista);
+	}
 
 	@Override
 	public String toString() {
 		StringBuilder representacion = new StringBuilder(this.nombreArtista);
-
+		representacion.append("El nombre del artista es: "+this.nombreArtista);
+		representacion.append("\nPuede Tocar "+this.cantidadCanciones.getNumActual()+"/"+this.cantidadCanciones.getNumMax());
+		representacion.append("\nSu costo por cancion es: "+this.costo.getCosto());
 		representacion.append("\nRoles Historicos:");
 		if (!rolesHistorico.isEmpty()) {
 			for (Roles rol : rolesHistorico)
@@ -92,63 +121,71 @@ public class Artista {
 
 		return representacion.toString();
 	}
-	///Relacionado con la bandas
+
+	/// Relacionado con la bandas
 	public void setBandasHistorico(String... bandas) {
 		for (String banda : bandas)
 			this.bandasHistorico.add(banda);
 	}
 
 	public boolean participoConArtista(Artista otro) {
-		boolean noHayElementosEnComun=Collections.disjoint(bandasHistorico, otro.bandasHistorico);
+		boolean noHayElementosEnComun = Collections.disjoint(bandasHistorico, otro.bandasHistorico);
 		return !noHayElementosEnComun;
 	}
-	///Relacionadas la Cantidad de canciones
+
+	/// Relacionadas la Cantidad de canciones
 	public void darCancion() {
 		cantidadCanciones.contar();
 	}
+
 	public boolean puedeTocar() {
 		return !cantidadCanciones.estaMaximo();
 	}
-	
-	///Relacionadas Al Rol
+
+	/// Relacionadas Al Rol
 	public void setRolesHistorico(Roles... roles) {
 		for (Roles rol : roles)
 			this.rolesHistorico.add(rol);
 	}
+
 	public boolean tieneRol(Roles rol) {
 		return rolesHistorico.contains(rol);
 	}
+
 	public boolean tieneRoles(Set<Roles> roles) {
-		boolean noHayElementosEnComun=Collections.disjoint(rolesHistorico, roles);
+		boolean noHayElementosEnComun = Collections.disjoint(rolesHistorico, roles);
 		return !noHayElementosEnComun;
 	}
+
 	public boolean entrenar(Roles nuevoRol) {
-	    // No entrenar si ya tiene el rol
-	    if (rolesHistorico.contains(nuevoRol))
-	        return false;
+		// No entrenar si ya tiene el rol
+		if (rolesHistorico.contains(nuevoRol))
+			return false;
 
-	    // No entrenar si ya fue contratado en alguna canción
-	    if (cantidadCanciones.getNumActual() > 0)
-	        return false;
+		// No entrenar si ya fue contratado en alguna canción
+		if (cantidadCanciones.getNumActual() > 0)
+			return false;
 
-	    // Aumentar costo
-	    double nuevoCosto = this.costo.getCosto() * 1.5;
-	    this.costo = new Costo(nuevoCosto);
+		// Aumentar costo
+		double nuevoCosto = this.costo.getCosto() * 1.5;
+		this.costo = new Costo(nuevoCosto);
 
-	    // Agregar nuevo rol
-	    this.rolesHistorico.add(nuevoRol);
-	    return true;
+		// Agregar nuevo rol
+		this.rolesHistorico.add(nuevoRol);
+		return true;
 	}
 
-	
-	///Relacionadas Al Coste
+	/// Relacionadas Al Coste
 	public double darCosto() {
 		return this.costo.getCosto();
 	}
+
 	public void aplicarDescuento() {
 		this.costo.aplicarDescuento();
 	}
+
 	public void quitarDescuento() {
-		this.costo.quitarDescuento();;
+		this.costo.quitarDescuento();
+		;
 	}
 }

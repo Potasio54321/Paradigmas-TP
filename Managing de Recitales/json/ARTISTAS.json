@@ -1,0 +1,95 @@
+[
+  {
+    "nombre": "Brian May",
+    "roles": [
+      "Guitarrista",
+      "Voz Principal"
+    ],
+    "bandas": [
+      "Queen"
+    ],
+    "costo": 0,
+    "maxCanciones": 100
+  },
+  {
+    "nombre": "Roger Taylor",
+    "roles": [
+      "Baterista",
+      "Voz Principal"
+    ],
+    "bandas": [
+      "Queen"
+    ],
+    "costo": 0,
+    "maxCanciones": 100
+  },
+  {
+    "nombre": "John Deacon",
+    "roles": [
+      "Bajista"
+    ],
+    "bandas": [
+      "Queen"
+    ],
+    "costo": 0,
+    "maxCanciones": 100
+  },
+  {
+    "nombre": "George Michael",
+    "roles": [
+      "Voz Principal"
+    ],
+    "bandas": [
+      "Wham!",
+      "George Michael"
+    ],
+    "costo": 1000,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Elton John",
+    "roles": [
+      "Voz Principal",
+      "Pianista"
+    ],
+    "bandas": [
+      "Elton John Band"
+    ],
+    "costo": 1200,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "David Bowie",
+    "roles": [
+      "Voz Principal"
+    ],
+    "bandas": [
+      "Tin Machine",
+      "David Bowie"
+    ],
+    "costo": 1500,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Annie Lennox",
+    "roles": [
+      "Voz Principal"
+    ],
+    "bandas": [
+      "Eurythmics"
+    ],
+    "costo": 900,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Lisa Stansfield",
+    "roles": [
+      "Voz Principal"
+    ],
+    "bandas": [
+      "Lisa Stansfield"
+    ],
+    "costo": 800,
+    "maxCanciones": 2
+  }
+]
