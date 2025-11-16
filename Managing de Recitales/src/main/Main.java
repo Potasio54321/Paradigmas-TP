@@ -77,10 +77,20 @@ public class Main {
 		Roles rolElegido = null;
 		switch (opcionElegida) {
 		case 1:
-			Graficos.mostrarContarPorCancion();
+			do {
+				ClearConsole();
+				Graficos.mostrarContarPorCancion();
+				// ListarOpciones
+				System.out.println(recital.listadoCancionSimpleConIndex());
+				// Selecionar
+				System.out.println("Elija una opcion");
+				opcionSelecionada = entrada.nextInt();
+			} while (opcionSelecionada < 1 || opcionSelecionada > recital.darCantidadCanciones());
+			System.out.println(recital.listarRolesFaltantesCantidadParaCancion(opcionSelecionada-1));
 			break;
 		case 2:
 			Graficos.mostrarContarPorRecital();
+			System.out.println(recital.listarRolesFaltantesCantidadParaRecital());
 			break;
 		case 3:
 			do {
@@ -99,11 +109,10 @@ public class Main {
 			recital.optimizarRecital();
 			break;
 		case 5:
-			Graficos.mostrarEntrenadoArtista();
 			do {
 				do {
 					ClearConsole();
-					Graficos.mostrarContratadoCancion();
+					Graficos.mostrarEntrenadoArtista();
 					// ListarOpciones Costo CostoNuevo
 					System.out.println(recital.listadoArtistasSimpleConIndex());
 					// Selcionar

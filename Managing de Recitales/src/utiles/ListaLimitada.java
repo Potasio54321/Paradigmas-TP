@@ -19,4 +19,7 @@ public class ListaLimitada<Tipo>{
 	public int getCantidadMaxima() {
 		return limite;
 	}
+	public int darTamañoActual() {
+		return lista.size();
+	}
 }	

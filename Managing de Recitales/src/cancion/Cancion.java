@@ -61,5 +61,19 @@ public class Cancion {
 		}
 		return true;
 	}
+	public String darRolesFaltantes() {
+		StringBuilder resultado=new StringBuilder();
+		resultado.append("Para la cancion: "+this.nombre+"\n");
+		for(Roles r:this.rolesNecesarios.keySet()) {
+			resultado.append("El rol: "+r);
+			ListaLimitada<Artista> lLimitada=this.rolesNecesarios.get(r);
+			if(lLimitada.estaLleno())
+				resultado.append(", esta lleno");
+			else
+				resultado.append(", necesita "+lLimitada.darTamañoActual()+"/"+lLimitada.getCantidadMaxima());
+			resultado.append("\n");
+		}
+		return resultado.toString();
+	}
 
 }

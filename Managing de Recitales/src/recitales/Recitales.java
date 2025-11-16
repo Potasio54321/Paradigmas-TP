@@ -26,9 +26,9 @@ public class Recitales {
 	public void optimizarRecital() {
 		for(Cancion cancion:canciones) {
 			cancion.optimizarCancion(artistas);
-		}
-		for(Artista artista:artistas) {
-			artista.quitarDescuento();
+			for(Artista artista:artistas) {
+				artista.quitarDescuento();
+			}
 		}
 	}
 	public String listarEstadoCanciones() {
@@ -94,5 +94,16 @@ public class Recitales {
 	}
 	public boolean entrenarArtista(int opcionSelecionada, Roles rolElegido) {
 		return artistas.get(opcionSelecionada).entrenar(rolElegido);
+	}
+	public String listarRolesFaltantesCantidadParaCancion(int opcionSelecionada) {
+		Cancion cancion=canciones.get(opcionSelecionada);	
+		return cancion.darRolesFaltantes();
+	}
+	public String listarRolesFaltantesCantidadParaRecital() {
+		StringBuilder resultado=new StringBuilder();
+		for(Cancion cancion:canciones) {
+			resultado.append(cancion.darRolesFaltantes());
+		}
+		return resultado.toString();
 	}
 }
