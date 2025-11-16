@@ -6,8 +6,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/Nuevo usuario/Documents/Paradigmas/Paradigmas-TP/Managing de Recitales/lib/jackson-annotations-2.20.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Nuevo usuario/Documents/Paradigmas/Paradigmas-TP/Managing de Recitales/lib/jackson-core-2.20.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Nuevo usuario/Documents/Paradigmas/Paradigmas-TP/Managing de Recitales/lib/jackson-databind-2.20.1.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-annotations-2.20.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-2.20.1.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-databind-2.20.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

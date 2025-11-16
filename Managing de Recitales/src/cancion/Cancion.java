@@ -24,7 +24,7 @@ public class Cancion {
 	}
 	@Override
 		public String toString() {
-			return this.nombre+costo+cantidadRolesNecesarios();
+			return this.nombre+" "+costo+" "+cantidadRolesNecesarios();
 		}
 	public void setRolesNecesarios(Roles rol, int cant) {
 		ListaLimitada<Artista> nuevoPodio = new ListaLimitada<Artista>(cant);
@@ -53,6 +53,13 @@ public class Cancion {
 	}
 	public String getNombre() {
 		return nombre;
+	}
+	public boolean estaTerminada() {
+		for (ListaLimitada<Artista> podio : rolesNecesarios.values()) {
+			if(!podio.estaLleno())
+				return false;
+		}
+		return true;
 	}
 
 }

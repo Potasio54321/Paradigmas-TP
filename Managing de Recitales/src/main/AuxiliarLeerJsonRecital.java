@@ -28,7 +28,7 @@ public class AuxiliarLeerJsonRecital {
 		HashMap<Roles, Integer> hM=new HashMap<Roles, Integer>();
 		for(String s:rolesRequeridos) {
 			Roles rolActual=Roles.fromString(s);
-			if(hM.containsKey(hM)) {
+			if(hM.containsKey(rolActual)) {
 				int i=hM.get(rolActual);
 				hM.put(rolActual, i+1);
 			}

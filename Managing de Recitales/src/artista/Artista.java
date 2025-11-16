@@ -102,9 +102,9 @@ public class Artista {
 
 	@Override
 	public String toString() {
-		StringBuilder representacion = new StringBuilder(this.nombreArtista);
+		StringBuilder representacion = new StringBuilder();
 		representacion.append("El nombre del artista es: "+this.nombreArtista);
-		representacion.append("\nPuede Tocar "+this.cantidadCanciones.getNumActual()+"/"+this.cantidadCanciones.getNumMax());
+		representacion.append("\nPuede Tocar "+this.cantidadCanciones.getNumActual()+"/"+this.cantidadCanciones.getNumMax()+" Canciones");
 		representacion.append("\nSu costo por cancion es: "+this.costo.getCosto());
 		representacion.append("\nRoles Historicos:");
 		if (!rolesHistorico.isEmpty()) {
