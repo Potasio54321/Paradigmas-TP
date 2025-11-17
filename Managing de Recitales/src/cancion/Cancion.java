@@ -1,6 +1,5 @@
 package cancion;
 
-
 /*
  * pieza musical a interpretar en el recital. Cada canción requiere uno o más roles 
  * (por ejemplo: voz principal, guitarra eléctrica, bajo, batería, coros, teclados, etc.).*/
@@ -8,6 +7,7 @@ import roles.Roles;
 import utiles.ListaLimitada;
 import artista.Artista;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 public class Cancion {
@@ -15,32 +15,37 @@ public class Cancion {
 	private boolean fueOptimizada;
 	protected double costo;
 	protected HashMap<Roles, ListaLimitada<Artista>> rolesNecesarios;
-	
+
 	public Cancion(String nombre) {
 		this.nombre = nombre;
-		this.costo=0;
-		fueOptimizada=false;
+		this.costo = 0;
+		fueOptimizada = false;
 		this.rolesNecesarios = new HashMap<Roles, ListaLimitada<Artista>>();
 	}
+
 	@Override
-		public String toString() {
-			return this.nombre+" "+costo+" "+cantidadRolesNecesarios();
-		}
+	public String toString() {
+		return this.nombre + " " + costo + " " + cantidadRolesNecesarios();
+	}
+
 	public void setRolesNecesarios(Roles rol, int cant) {
 		ListaLimitada<Artista> nuevoPodio = new ListaLimitada<Artista>(cant);
-		rolesNecesarios.put(rol,nuevoPodio);
+		rolesNecesarios.put(rol, nuevoPodio);
 	}
+
 	public void setRolesNecesarios(HashMap<Roles, Integer> roles) {
-		for(Roles r:roles.keySet()) {
+		for (Roles r : roles.keySet()) {
 			ListaLimitada<Artista> nuevaLista = new ListaLimitada<Artista>(roles.get(r));
-			rolesNecesarios.put(r,nuevaLista);
+			rolesNecesarios.put(r, nuevaLista);
 		}
-		
+
 	}
+
 	public void optimizarCancion(LinkedList<Artista> artistas) {
-		if(!fueOptimizada)
-			OptimizadorCanciones.optimizarCancion(artistas,this);
+		if (!fueOptimizada)
+			OptimizadorCanciones.optimizarCancion(artistas, this);
 	}
+
 	public int cantidadRolesNecesarios() {
 		int acum = 0;
 		for (ListaLimitada<Artista> podio : rolesNecesarios.values()) {
@@ -48,32 +53,42 @@ public class Cancion {
 		}
 		return acum;
 	}
+
 	public double darCostoTotal() {
 		return costo;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public boolean estaTerminada() {
 		for (ListaLimitada<Artista> podio : rolesNecesarios.values()) {
-			if(!podio.estaLleno())
+			if (!podio.estaLleno())
 				return false;
 		}
 		return true;
 	}
+
 	public String darRolesFaltantes() {
-		StringBuilder resultado=new StringBuilder();
-		resultado.append("Para la cancion: "+this.nombre+"\n");
-		for(Roles r:this.rolesNecesarios.keySet()) {
-			resultado.append("El rol: "+r);
-			ListaLimitada<Artista> lLimitada=this.rolesNecesarios.get(r);
-			if(lLimitada.estaLleno())
+		StringBuilder resultado = new StringBuilder();
+		resultado.append("Para la cancion: " + this.nombre + "\n");
+		for (Roles r : this.rolesNecesarios.keySet()) {
+			resultado.append("El rol: " + r);
+			ListaLimitada<Artista> lLimitada = this.rolesNecesarios.get(r);
+			if (lLimitada.estaLleno())
 				resultado.append(", esta lleno");
 			else
-				resultado.append(", necesita "+lLimitada.darTamañoActual()+"/"+lLimitada.getCantidadMaxima());
+				resultado.append(", necesita " + lLimitada.darTamañoActual() + "/" + lLimitada.getCantidadMaxima());
 			resultado.append("\n");
 		}
 		return resultado.toString();
+	}
+
+	public HashSet<Roles> getRolesNecesarios() {
+		HashSet<Roles> res = new HashSet<Roles>();
+		rolesNecesarios.forEach((r, l) -> res.add(r));
+		return res;
 	}
 
 }

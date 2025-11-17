@@ -41,9 +41,11 @@ public class Main {
 	private static boolean inicializarRecital(Recitales recital) {
 		HashSet<Artista> artistas = new HashSet<>();
 		HashSet<Cancion> canciones = new HashSet<>();
+		
 		if (!InicializadorJSON.inicializarDatos(artistas, canciones)) {
 			return false;
 		}
+		Prologando.Prolog(artistas, canciones);
 		recital.darArtista(artistas);
 		recital.darCancion(canciones);
 		return true;
