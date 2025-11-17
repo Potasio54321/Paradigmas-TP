@@ -1,25 +1,19 @@
 package main;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.jpl7.Atom;
-import org.jpl7.PrologException;
 import org.jpl7.Query;
 import org.jpl7.Term;
-import org.jpl7.Variable;
 
 import artista.Artista;
 import cancion.Cancion;
 import roles.Roles;
 
 public class Prologando {
-	public static int Prolog(HashSet<Artista> artistas, HashSet<Cancion> canciones) {
+	public static int Prolog(LinkedList<Artista> artistas, LinkedList<Cancion> canciones) {
 		try {
 			for (Artista a : artistas) {
 				crearHechoProlog(artistaProlog(a));

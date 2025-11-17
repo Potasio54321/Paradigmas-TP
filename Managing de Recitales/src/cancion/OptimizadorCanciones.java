@@ -9,14 +9,13 @@ import java.util.LinkedList;
 import java.util.Set;
 
 class OptimizadorCanciones {
-	
+
 	public static void optimizarCancion(LinkedList<Artista> artistas, Cancion cancion) {
-		// TO DO : ordenarlos asi se recorre mas facil
 		Set<Roles> rolesSinLlenar = new HashSet<Roles>(cancion.rolesNecesarios.keySet());
 		Set<Roles> rolesLlenados = new HashSet<Roles>();
 		LinkedList<Artista> artistasUsables = filtrarArtistas(artistas, cancion.rolesNecesarios.keySet());
-		if (artistasUsables.isEmpty())
-			return;
+		if (artistasUsables.isEmpty()||artistasUsables.size()<rolesSinLlenar.size())
+			throw new IllegalArgumentException("No es posible optimizar la cancion");
 		while (!rolesSinLlenar.isEmpty()) {
 			// Va a selecionar el rol que necesita menos artistas en el momento
 			Roles rolElegido = elegirRolMinimo(rolesSinLlenar, artistasUsables);
@@ -27,7 +26,7 @@ class OptimizadorCanciones {
 			intercambiarArtista(artistasUsables, mejorArtistaMomento, cancion.rolesNecesarios.get(rolElegido));
 			if (cancion.rolesNecesarios.get(rolElegido).estaLleno())
 				intercambiarRoles(rolesSinLlenar, rolElegido, rolesLlenados);
-			cancion.costo+=mejorArtistaMomento.darCosto();
+			cancion.costo += mejorArtistaMomento.darCosto();
 			mejorArtistaMomento.darCancion();
 		}
 
@@ -35,7 +34,7 @@ class OptimizadorCanciones {
 
 	private static LinkedList<Artista> filtrarArtistas(LinkedList<Artista> artistas, Set<Roles> rolesNecesarios) {
 		LinkedList<Artista> artistasUsables = new LinkedList<Artista>(artistas);
-		artistasUsables.removeIf(a -> !a.puedeTocar()&&!a.tieneRoles(rolesNecesarios));
+		artistasUsables.removeIf(a -> !a.puedeTocar() && !a.tieneRoles(rolesNecesarios));
 		return artistasUsables;
 	}
 
@@ -69,6 +68,9 @@ class OptimizadorCanciones {
 		double mejorCosto = Double.MAX_VALUE;
 		Artista mejorArtista = null;
 		LinkedList<Artista> artistasUsablesConRol = artistasConRol(artistasUsables, rolAElegir);
+		if(artistasUsablesConRol.size()==0){
+			throw new IllegalStateException();
+		}
 		for (Artista artista : artistasUsablesConRol) {
 			double costo = artista.darCosto();
 
@@ -88,7 +90,8 @@ class OptimizadorCanciones {
 		}
 	}
 
-	private static LinkedList<Artista> artistasParticiparonConArtista(LinkedList<Artista> artistasUsables, Artista artista) {
+	private static LinkedList<Artista> artistasParticiparonConArtista(LinkedList<Artista> artistasUsables,
+			Artista artista) {
 		LinkedList<Artista> artistasParaRolActual = new LinkedList<Artista>(artistasUsables);
 		artistasParaRolActual.removeIf(a -> !a.participoConArtista(artista) && !a.puedeTocar());
 		return artistasParaRolActual;

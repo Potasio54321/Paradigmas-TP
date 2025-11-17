@@ -7,20 +7,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 public class InicializadorJSON {
-    public static boolean inicializarDatos(HashSet<Artista> a, HashSet<Cancion> c) {
+    public static boolean inicializarDatos(HashSet<Artista> a, HashSet<Cancion> c, String caminoArtistas, String caminoCanciones) throws Exception {
         try {
             /// Por qué no vigilo si se cierra o no? Porque File no es FileInputStream.
-            File artistasJson = new File("json/ARTISTAS.json");
-            File cancionesJson = new File("json/RECITAL.json");
+            File artistasJson = new File(caminoArtistas);
+            File cancionesJson = new File(caminoCanciones);
 
             a.addAll(inicializarArtistas(artistasJson));
             c.addAll(iniciaCanciones(cancionesJson));
-            return true;
         }
         catch(Exception e) {
             System.out.println(e.getMessage());
-            return false;
+            throw e;
         }
+        return true;
     }
 
     public static HashSet<Artista> inicializarArtistas(File archivo) throws Exception {

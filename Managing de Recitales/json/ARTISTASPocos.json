@@ -1,0 +1,25 @@
+[
+    {
+    "nombre": "Annie Lennox",
+    "roles": [
+      "Voz Principal"
+    ],
+    "bandas": [
+      "Eurythmics"
+    ],
+    "costo": 900,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Lisa Stansfield",
+    "roles": [
+      "Voz Principal",
+      "Guitarrista"
+    ],
+    "bandas": [
+      "Lisa Stansfield"
+    ],
+    "costo": 800,
+    "maxCanciones": 2
+  }
+]

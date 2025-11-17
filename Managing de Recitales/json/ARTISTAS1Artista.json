@@ -1,0 +1,14 @@
+[
+    {
+    "nombre": "Roger Taylor",
+    "roles": [
+      "Baterista",
+      "Voz Principal"
+    ],
+    "bandas": [
+      "Queen"
+    ],
+    "costo": 0,
+    "maxCanciones": 100
+  }
+]

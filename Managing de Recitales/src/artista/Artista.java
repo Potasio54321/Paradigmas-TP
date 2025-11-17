@@ -39,6 +39,8 @@ public class Artista {
 	}
 
 	public Artista(String nombreArtista, int cantMaximaCanciones, float costo) {
+		if (nombreArtista == "")
+			throw new IllegalArgumentException("Artista nombre Artista Vacio");
 		this.nombreArtista = nombreArtista;
 		this.bandasHistorico = new HashSet<String>();
 		this.rolesHistorico = new HashSet<Roles>();
@@ -52,6 +54,8 @@ public class Artista {
 	}
 
 	public void setNombreArtista(String nombreArtista) {
+		if (nombreArtista == "")
+			throw new IllegalArgumentException("Artista nombre Artista Vacio");
 		this.nombreArtista = nombreArtista;
 	}
 
@@ -103,9 +107,10 @@ public class Artista {
 	@Override
 	public String toString() {
 		StringBuilder representacion = new StringBuilder();
-		representacion.append("El nombre del artista es: "+this.nombreArtista);
-		representacion.append("\nPuede Tocar "+this.cantidadCanciones.getNumActual()+"/"+this.cantidadCanciones.getNumMax()+" Canciones");
-		representacion.append("\nSu costo por cancion es: "+this.costo.getCosto());
+		representacion.append("El nombre del artista es: " + this.nombreArtista);
+		representacion.append("\nPuede Tocar " + this.cantidadCanciones.getNumActual() + "/"
+				+ this.cantidadCanciones.getNumMax() + " Canciones");
+		representacion.append("\nSu costo por cancion es: " + this.costo.getCosto());
 		representacion.append("\nRoles Historicos:");
 		if (!rolesHistorico.isEmpty()) {
 			for (Roles rol : rolesHistorico)
@@ -161,12 +166,9 @@ public class Artista {
 	}
 
 	public boolean entrenar(Roles nuevoRol) {
-		// No entrenar si ya tiene el rol
-		if (rolesHistorico.contains(nuevoRol))
-			return false;
-
-		// No entrenar si ya fue contratado en alguna canción
-		if (cantidadCanciones.getNumActual() > 0)
+		// No entrenar si ya tiene el rol o No entrenar si ya fue contratado en alguna
+		// canción
+		if (rolesHistorico.contains(nuevoRol) || cantidadCanciones.getNumActual() > 0)
 			return false;
 
 		// Aumentar costo
@@ -189,6 +191,5 @@ public class Artista {
 
 	public void quitarDescuento() {
 		this.costo.quitarDescuento();
-		;
 	}
 }

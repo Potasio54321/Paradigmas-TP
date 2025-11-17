@@ -1,0 +1,14 @@
+[
+  {
+    "nombre": "",
+    "roles": [
+      "Guitarrista",
+      "Voz Principal"
+    ],
+    "bandas": [
+      "Queen"
+    ],
+    "costo": 0,
+    "maxCanciones": 100
+  }
+]

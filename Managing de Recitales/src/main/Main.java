@@ -12,57 +12,62 @@ import recitales.Recitales;
 import roles.Roles;
 
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// Inicializar
+		try {
 		Scanner entrada = new Scanner(System.in);
 		Recitales recital = new Recitales();
 		int opcionElegida;
 		Graficos.mostrarBienvenida();
 		esperar();
 		// Verificacion todo OK
-		if (!inicializarRecital(recital)) {
+		if (!inicializarRecital(recital,args)) {
 			Graficos.mostrarSalida();
 			entrada.close();
 			return;
 		}
 		// Hacer Acciones
 		do {
-			ClearConsole();
+			clearConsole();
 			Graficos.mostrarElegirOpcion();
-			opcionElegida = entrada.nextInt();
+			opcionElegida = leerInt(entrada);
 			Graficos.mostrarOpcionElegida(opcionElegida);
 			hacerAccion(opcionElegida, recital, entrada);
 		} while (opcionElegida != 9);
 		/// Solo pasa si se toca 9
 		entrada.close();
 		esperar();
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+	private static int leerInt(Scanner entrada) {
+	    System.out.print("Ingrese un número: ");
+
+	    while (!entrada.hasNextInt()) {
+	        System.out.println("Entrada inválida. Debe ingresar un número.");
+	        entrada.next();  // descarta lo incorrecto
+	        System.out.print("Ingrese un número: ");
+	    }
+
+	    return entrada.nextInt();
 	}
 
-	private static boolean inicializarRecital(Recitales recital) {
+	private static boolean inicializarRecital(Recitales recital, String[] args) throws Exception {
 		HashSet<Artista> artistas = new HashSet<>();
 		HashSet<Cancion> canciones = new HashSet<>();
-		
-		if (!InicializadorJSON.inicializarDatos(artistas, canciones)) {
+
+		if (!InicializadorJSON.inicializarDatos(artistas, canciones,args[0],args[1])) {
 			return false;
 		}
-		Prologando.Prolog(artistas, canciones);
 		recital.darArtista(artistas);
 		recital.darCancion(canciones);
 		return true;
 	}
 
-	public static void ClearConsole() {
-		try {
-			final String os = System.getProperty("os.name");
-
-			if (os.contains("Windows")) {
-				Runtime.getRuntime().exec("cls");
-			} else {
-				Runtime.getRuntime().exec("clear");
-			}
-		} catch (final Exception e) {
-			// Handle any exceptions.
-		}
+	public static void clearConsole() {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
 	}
 
 	private static void esperar() {
@@ -79,31 +84,15 @@ public class Main {
 		Roles rolElegido = null;
 		switch (opcionElegida) {
 		case 1:
-			do {
-				ClearConsole();
-				Graficos.mostrarContarPorCancion();
-				// ListarOpciones
-				System.out.println(recital.listadoCancionSimpleConIndex());
-				// Selecionar
-				System.out.println("Elija una opcion");
-				opcionSelecionada = entrada.nextInt();
-			} while (opcionSelecionada < 1 || opcionSelecionada > recital.darCantidadCanciones());
-			System.out.println(recital.listarRolesFaltantesCantidadParaCancion(opcionSelecionada-1));
+			opcionSelecionada = elegirIndexCancionSimpleContar(recital, entrada);
+			System.out.println(recital.listarRolesFaltantesCantidadParaCancion(opcionSelecionada - 1));
 			break;
 		case 2:
 			Graficos.mostrarContarPorRecital();
 			System.out.println(recital.listarRolesFaltantesCantidadParaRecital());
 			break;
 		case 3:
-			do {
-				ClearConsole();
-				Graficos.mostrarContratadoCancion();
-				// ListarOpciones
-				System.out.println(recital.listadoCancionSimpleConIndex());
-				// Selecionar
-				System.out.println("Elija una opcion");
-				opcionSelecionada = entrada.nextInt();
-			} while (opcionSelecionada < 1 || opcionSelecionada > recital.darCantidadCanciones());
+			opcionSelecionada = elegirIndexCancionSimpleOptimizar(recital, entrada);
 			recital.optimizarCancion(opcionSelecionada - 1);
 			break;
 		case 4:
@@ -112,27 +101,10 @@ public class Main {
 			break;
 		case 5:
 			do {
-				do {
-					ClearConsole();
-					Graficos.mostrarEntrenadoArtista();
-					// ListarOpciones Costo CostoNuevo
-					System.out.println(recital.listadoArtistasSimpleConIndex());
-					// Selcionar
-					System.out.println("Elija una opcion");
-					opcionSelecionada = entrada.nextInt();
-				} while (opcionSelecionada < 1 || opcionSelecionada > recital.darCantidadArtistas());
-				Artista a = recital.obtenerArtista(opcionSelecionada - 1);
-				List<Roles> rolesArtista = new ArrayList<>(Arrays.asList(Roles.values()));
-				rolesArtista.retainAll(a.getRolesHistorico());
-				// SelecionarRol
-				if (rolesArtista.size() != Roles.values().length) {
-					rolElegido = elegirRolNoTenido(rolesArtista, entrada);
-				} else {
-					System.out.println("Selecione a otro artista, este tiene todos los Roles");
-					rolElegido = null;
-				}
+				opcionSelecionada = ElegirIndexArtistaSelecionar(recital, entrada);
+				rolElegido = elegirRolArtistaNoTiene(opcionSelecionada, recital, entrada);
 			} while (rolElegido == null);
-			recital.entrenarArtista(opcionSelecionada-1, rolElegido);
+			recital.entrenarArtista(opcionSelecionada - 1, rolElegido);
 			break;
 		case 6:
 			Graficos.mostrarArtistas();
@@ -143,7 +115,8 @@ public class Main {
 			System.out.println(recital.listarEstadoCanciones());
 			break;
 		case 8:
-			System.out.println("Estoy Prolog");
+			Graficos.mostrarProlog();
+			Prologando.Prolog(recital.getArtistas(), recital.getCanciones());
 			break;
 		case 9:
 			Graficos.mostrarSalida();
@@ -152,7 +125,60 @@ public class Main {
 			Graficos.mostrarIntenteloDeNuevo();
 			break;
 		}
-		ClearConsole();
+		clearConsole();
+	}
+
+	private static int elegirIndexCancionSimpleOptimizar(Recitales recital, Scanner entrada) {
+		int opcionSelecionada;
+		do {
+			clearConsole();
+			Graficos.mostrarContarPorCancion();
+			// ListarOpciones
+			System.out.println(recital.listadoCancionSimpleConIndex());
+			// Selecionar
+			System.out.println("Elija una opcion");
+			opcionSelecionada = leerInt(entrada);
+		} while (opcionSelecionada < 1 || opcionSelecionada > recital.darCantidadCanciones());
+		return opcionSelecionada;
+	}
+
+	private static int elegirIndexCancionSimpleContar(Recitales recital, Scanner entrada) {
+		int opcionSelecionada;
+		do {
+			clearConsole();
+			Graficos.mostrarContarPorCancion();
+			// ListarOpciones
+			System.out.println(recital.listadoCancionSimpleConIndex());
+			// Selecionar
+			System.out.println("Elija una opcion");
+			opcionSelecionada = leerInt(entrada);
+		} while (opcionSelecionada < 1 || opcionSelecionada > recital.darCantidadCanciones());
+		return opcionSelecionada;
+	}
+
+	private static Roles elegirRolArtistaNoTiene(int opcionSelecionada, Recitales recital, Scanner entrada) {
+		Artista a = recital.obtenerArtista(opcionSelecionada - 1);
+		List<Roles> rolesArtista = new ArrayList<>(Arrays.asList(Roles.values()));
+		rolesArtista.retainAll(a.getRolesHistorico());
+		// SelecionarRol
+		if (rolesArtista.size() != Roles.values().length)
+			return elegirRolNoTenido(rolesArtista, entrada);
+		System.out.println("Selecione a otro artista, este tiene todos los Roles");
+		return null;
+	}
+
+	private static int ElegirIndexArtistaSelecionar(Recitales recital, Scanner entrada) {
+		int opcionSelecionada;
+		do {
+			clearConsole();
+			Graficos.mostrarEntrenadoArtista();
+			// ListarOpciones Costo CostoNuevo
+			System.out.println(recital.listadoArtistasSimpleConIndex());
+			// Selecionar
+			System.out.println("Elija una opcion");
+			opcionSelecionada = leerInt(entrada);
+		} while (opcionSelecionada < 1 || opcionSelecionada > recital.darCantidadArtistas());
+		return opcionSelecionada;
 	}
 
 	private static Roles elegirRolNoTenido(List<Roles> rolesArtista, Scanner entrada) {
@@ -162,9 +188,9 @@ public class Main {
 		do {
 			System.out.println("Elija un Rol");
 			for (int i = 0; i < rolesTotales.size(); i++) {
-				System.out.println("Rol Numero " + (i+1) + " " + rolesTotales.get(i));
+				System.out.println("Rol Numero " + (i + 1) + " " + rolesTotales.get(i));
 			}
-			indexElegido = entrada.nextInt();
+			indexElegido = leerInt(entrada);
 		} while (indexElegido < 0 || indexElegido > rolesTotales.size());
 		return rolesTotales.get(indexElegido - 1);
 	}

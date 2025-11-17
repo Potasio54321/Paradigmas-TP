@@ -106,4 +106,10 @@ public class Recitales {
 		}
 		return resultado.toString();
 	}
+	public LinkedList<Artista> getArtistas() {
+		return new LinkedList<Artista>(this.artistas);
+	}
+	public LinkedList<Cancion> getCanciones() {
+		return new LinkedList<Cancion>(this.canciones);
+	}
 }
