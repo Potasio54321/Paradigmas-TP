@@ -128,7 +128,7 @@ public class Main {
 			Graficos.mostrarProlog();
 			prologEstado=Prologando.Prolog(recital.getArtistas(), recital.getCanciones());
 			if(prologEstado!=Prologando.FALLIDO) {
-				System.out.println("Se necesitan entrenar "+prologEstado +"Artistas");
+				System.out.println("Se necesitan entrenar "+prologEstado +" Artistas");
 			}
 			break;
 		case 9:
