@@ -76,13 +76,13 @@ public class Main {
 				Runtime.getRuntime().exec("clear");
 			}
 		} catch (final Exception e) {
-			
+
 		}
 	}
 
 	private static void esperar() {
 		try {
-			Thread.sleep(1000); //Pausa por 1 segundo
+			Thread.sleep(1000); // Pausa por 1 segundo
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
@@ -126,9 +126,9 @@ public class Main {
 			break;
 		case 8:
 			Graficos.mostrarProlog();
-			prologEstado=Prologando.Prolog(recital.getArtistas(), recital.getCanciones());
-			if(prologEstado!=Prologando.FALLIDO) {
-				System.out.println("Se necesitan entrenar "+prologEstado +" Artistas");
+			prologEstado = Prologando.Prolog(recital.getArtistas(), recital.getCanciones());
+			if (prologEstado != Prologando.FALLIDO) {
+				System.out.println("Se necesitan entrenar " + prologEstado + " Artistas");
 			}
 			break;
 		case 9:

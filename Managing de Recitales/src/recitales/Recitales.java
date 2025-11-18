@@ -47,14 +47,6 @@ public class Recitales {
 		return resultado.toString();
 	}
 
-	public void darArtista(HashSet<Artista> artistas2) {
-		artistas.addAll(artistas2);
-	}
-
-	public void darCancion(HashSet<Cancion> canciones2) {
-		canciones.addAll(canciones2);
-	}
-
 	public String listarArtistasContratados() {
 		StringBuilder sb = new StringBuilder();
 		for (Artista artista : artistas) {
@@ -75,18 +67,6 @@ public class Recitales {
 			i += 1;
 		}
 		return resultado.toString();
-	}
-
-	public int darCantidadArtistas() {
-		return artistas.size();
-	}
-
-	public int darCantidadCanciones() {
-		return canciones.size();
-	}
-
-	public Artista obtenerArtista(int index) {
-		return artistas.get(index);
 	}
 
 	public String listadoArtistasSimpleConIndex() {
@@ -121,11 +101,31 @@ public class Recitales {
 		return resultado.toString();
 	}
 
+	public int darCantidadArtistas() {
+		return artistas.size();
+	}
+
+	public int darCantidadCanciones() {
+		return canciones.size();
+	}
+
+	public Artista obtenerArtista(int index) {
+		return artistas.get(index);
+	}
+
 	public LinkedList<Artista> getArtistas() {
 		return new LinkedList<Artista>(this.artistas);
 	}
 
 	public LinkedList<Cancion> getCanciones() {
 		return new LinkedList<Cancion>(this.canciones);
+	}
+
+	public void darArtista(HashSet<Artista> artistas2) {
+		artistas.addAll(artistas2);
+	}
+
+	public void darCancion(HashSet<Cancion> canciones2) {
+		canciones.addAll(canciones2);
 	}
 }
