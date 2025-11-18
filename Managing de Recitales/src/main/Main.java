@@ -30,6 +30,17 @@ public class Main {
 			do {
 				clearConsole();
 				Graficos.mostrarElegirOpcion();
+				System.out.println("""
+						1.Mostrar Roles Restantes para una cancion
+						2.Mostrar Roles Restantes para el recital
+						3.Optimizar 1 cancion
+						4.Optimizar el recital
+						5.Entrenar un artista
+						6.Mostrar Artistas
+						7.MostrarCanciones
+						8.Mostrar Entrenamientos para artistas sin experiencia.
+						9.Salir
+						""");
 				opcionElegida = leerInt(entrada);
 				Graficos.mostrarOpcionElegida(opcionElegida);
 				hacerAccion(opcionElegida, recital, entrada);
@@ -88,6 +99,14 @@ public class Main {
 		}
 	}
 
+	private static void esperarInput(Scanner entrada) {
+		System.out.print("\nPresione ENTER para continuar...\n");
+		// Si hay algo en el buffer, lo consume
+		if (entrada.hasNextLine()) {
+			entrada.nextLine();
+		}
+	}
+
 	private static void hacerAccion(int opcionElegida, Recitales recital, Scanner entrada) {
 		int opcionSelecionada;
 		int prologEstado;
@@ -111,7 +130,7 @@ public class Main {
 			break;
 		case 5:
 			do {
-				opcionSelecionada = ElegirIndexArtistaSelecionar(recital, entrada);
+				opcionSelecionada = elegirIndexArtistaSelecionar(recital, entrada);
 				rolElegido = elegirRolArtistaNoTiene(opcionSelecionada, recital, entrada);
 			} while (rolElegido == null);
 			recital.entrenarArtista(opcionSelecionada - 1, rolElegido);
@@ -138,6 +157,8 @@ public class Main {
 			Graficos.mostrarIntenteloDeNuevo();
 			break;
 		}
+		entrada.nextLine();
+		esperarInput(entrada);
 		clearConsole();
 	}
 
@@ -180,7 +201,7 @@ public class Main {
 		return null;
 	}
 
-	private static int ElegirIndexArtistaSelecionar(Recitales recital, Scanner entrada) {
+	private static int elegirIndexArtistaSelecionar(Recitales recital, Scanner entrada) {
 		int opcionSelecionada;
 		do {
 			clearConsole();
