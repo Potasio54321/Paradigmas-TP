@@ -25,7 +25,7 @@ public class InicializadorJSON {
 
     public static HashSet<Artista> inicializarArtistas(File archivo) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        HashSet<Artista> artistas = mapper.readValue(archivo, new TypeReference<>() {});
+		HashSet<Artista> artistas = mapper.readValue(archivo, new TypeReference<>() {});
 
         return artistas;
     }

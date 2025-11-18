@@ -14,7 +14,7 @@ class OptimizadorCanciones {
 		Set<Roles> rolesSinLlenar = new HashSet<Roles>(cancion.rolesNecesarios.keySet());
 		Set<Roles> rolesLlenados = new HashSet<Roles>();
 		LinkedList<Artista> artistasUsables = filtrarArtistas(artistas, cancion.rolesNecesarios.keySet());
-		if (artistasUsables.isEmpty()||artistasUsables.size()<rolesSinLlenar.size())
+		if (artistasUsables.isEmpty() || artistasUsables.size() < rolesSinLlenar.size())
 			throw new IllegalArgumentException("No es posible optimizar la cancion");
 		while (!rolesSinLlenar.isEmpty()) {
 			// Va a selecionar el rol que necesita menos artistas en el momento
@@ -68,7 +68,7 @@ class OptimizadorCanciones {
 		double mejorCosto = Double.MAX_VALUE;
 		Artista mejorArtista = null;
 		LinkedList<Artista> artistasUsablesConRol = artistasConRol(artistasUsables, rolAElegir);
-		if(artistasUsablesConRol.size()==0){
+		if (artistasUsablesConRol.size() == 0) {
 			throw new IllegalStateException();
 		}
 		for (Artista artista : artistasUsablesConRol) {

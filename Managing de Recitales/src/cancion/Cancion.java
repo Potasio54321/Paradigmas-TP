@@ -17,7 +17,7 @@ public class Cancion {
 	protected HashMap<Roles, ListaLimitada<Artista>> rolesNecesarios;
 
 	public Cancion(String nombre) {
-		if(nombre=="") {
+		if (nombre == "") {
 			throw new IllegalArgumentException("Cancion nombre Vacio");
 		}
 		this.nombre = nombre;

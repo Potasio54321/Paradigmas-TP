@@ -15,49 +15,50 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		// Inicializar
 		try {
-		Scanner entrada = new Scanner(System.in);
-		Recitales recital = new Recitales();
-		int opcionElegida;
-		Graficos.mostrarBienvenida();
-		esperar();
-		// Verificacion todo OK
-		if (!inicializarRecital(recital,args)) {
-			Graficos.mostrarSalida();
+			Scanner entrada = new Scanner(System.in);
+			Recitales recital = new Recitales();
+			int opcionElegida;
+			Graficos.mostrarBienvenida();
+			esperar();
+			// Verificacion todo OK
+			if (!inicializarRecital(recital, args)) {
+				Graficos.mostrarSalida();
+				entrada.close();
+				return;
+			}
+			// Hacer Acciones
+			do {
+				clearConsole();
+				Graficos.mostrarElegirOpcion();
+				opcionElegida = leerInt(entrada);
+				Graficos.mostrarOpcionElegida(opcionElegida);
+				hacerAccion(opcionElegida, recital, entrada);
+			} while (opcionElegida != 9);
+			/// Solo pasa si se toca 9
 			entrada.close();
-			return;
-		}
-		// Hacer Acciones
-		do {
-			clearConsole();
-			Graficos.mostrarElegirOpcion();
-			opcionElegida = leerInt(entrada);
-			Graficos.mostrarOpcionElegida(opcionElegida);
-			hacerAccion(opcionElegida, recital, entrada);
-		} while (opcionElegida != 9);
-		/// Solo pasa si se toca 9
-		entrada.close();
-		esperar();
-		}catch(Exception e) {
+			esperar();
+		} catch (Exception e) {
 			throw e;
 		}
 	}
+
 	private static int leerInt(Scanner entrada) {
-	    System.out.print("Ingrese un número: ");
+		System.out.print("Ingrese un número: ");
 
-	    while (!entrada.hasNextInt()) {
-	        System.out.println("Entrada inválida. Debe ingresar un número.");
-	        entrada.next();  // descarta lo incorrecto
-	        System.out.print("Ingrese un número: ");
-	    }
+		while (!entrada.hasNextInt()) {
+			System.out.println("Entrada inválida. Debe ingresar un número.");
+			entrada.next(); // descarta lo incorrecto
+			System.out.print("Ingrese un número: ");
+		}
 
-	    return entrada.nextInt();
+		return entrada.nextInt();
 	}
 
 	private static boolean inicializarRecital(Recitales recital, String[] args) throws Exception {
 		HashSet<Artista> artistas = new HashSet<>();
 		HashSet<Cancion> canciones = new HashSet<>();
 
-		if (!InicializadorJSON.inicializarDatos(artistas, canciones,args[0],args[1])) {
+		if (!InicializadorJSON.inicializarDatos(artistas, canciones, args[0], args[1])) {
 			return false;
 		}
 		recital.darArtista(artistas);
@@ -66,8 +67,17 @@ public class Main {
 	}
 
 	public static void clearConsole() {
-		System.out.print("\033[H\033[2J");
-		System.out.flush();
+		try {
+			final String os = System.getProperty("os.name");
+
+			if (os.contains("Windows")) {
+				Runtime.getRuntime().exec("cls");
+			} else {
+				Runtime.getRuntime().exec("clear");
+			}
+		} catch (final Exception e) {
+			// Handle any exceptions.
+		}
 	}
 
 	private static void esperar() {
