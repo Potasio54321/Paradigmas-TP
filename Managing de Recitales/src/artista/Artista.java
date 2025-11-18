@@ -21,6 +21,7 @@ import utiles.Costo;
  * asignado a roles que haya desempeñado históricamente.
  */
 public class Artista {
+	private static final double AUMENTO_ENTRENAMIENTO = 1.5;
 	@JsonProperty("nombre")
 	private String nombreArtista;
 	@JsonProperty("bandas")
@@ -172,7 +173,7 @@ public class Artista {
 			return false;
 
 		// Aumentar costo
-		double nuevoCosto = this.costo.getCosto() * 1.5;
+		double nuevoCosto = this.costo.getCosto() * AUMENTO_ENTRENAMIENTO;
 		this.costo = new Costo(nuevoCosto);
 
 		// Agregar nuevo rol

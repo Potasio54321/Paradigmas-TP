@@ -13,6 +13,8 @@ import cancion.Cancion;
 import roles.Roles;
 
 public class Prologando {
+	public static final int FALLIDO = -1;
+
 	public static int Prolog(LinkedList<Artista> artistas, LinkedList<Cancion> canciones) {
 		try {
 			for (Artista a : artistas) {
@@ -38,16 +40,15 @@ public class Prologando {
 				Term termMin = solucion.get("Min");
 				if (termMin.isInteger()) {
 					int resultado = termMin.intValue();
-					System.out.println("¡MÍNIMO DE MERCENARIOS: " + resultado + "!");
 					return resultado;
 				}
 			}
 			System.out.println("No se pudo calcular.");
-			return -1;
+			return FALLIDO;
 		} catch (Exception e) {
-			System.err.println("¡PROLOG SE ROMPIÓ!" + e.getMessage());
+			System.err.println("¡PROLOG SE ROMPIÓ! \n" + e.getMessage());
 			e.printStackTrace();
-			return -1;
+			return FALLIDO;
 		}
 	}
 

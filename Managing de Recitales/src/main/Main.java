@@ -76,21 +76,21 @@ public class Main {
 				Runtime.getRuntime().exec("clear");
 			}
 		} catch (final Exception e) {
-			// Handle any exceptions.
+			
 		}
 	}
 
 	private static void esperar() {
 		try {
-			Thread.sleep(1000); // Pauses the current thread for 1 second (1000 milliseconds)
+			Thread.sleep(1000); //Pausa por 1 segundo
 		} catch (InterruptedException e) {
-			// Handle the interruption if another thread interrupts the sleeping thread
-			Thread.currentThread().interrupt(); // Re-interrupt the current thread
+			Thread.currentThread().interrupt();
 		}
 	}
 
 	private static void hacerAccion(int opcionElegida, Recitales recital, Scanner entrada) {
 		int opcionSelecionada;
+		int prologEstado;
 		Roles rolElegido = null;
 		switch (opcionElegida) {
 		case 1:
@@ -126,7 +126,10 @@ public class Main {
 			break;
 		case 8:
 			Graficos.mostrarProlog();
-			Prologando.Prolog(recital.getArtistas(), recital.getCanciones());
+			prologEstado=Prologando.Prolog(recital.getArtistas(), recital.getCanciones());
+			if(prologEstado!=Prologando.FALLIDO) {
+				System.out.println("Se necesitan entrenar "+prologEstado +"Artistas");
+			}
 			break;
 		case 9:
 			Graficos.mostrarSalida();

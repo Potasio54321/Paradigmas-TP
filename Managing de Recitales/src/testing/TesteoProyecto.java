@@ -35,17 +35,5 @@ class TesteoProyecto {
 	void testSinCanciones() {
 		assertThrows(Exception.class, () -> Main.main(new String[] { "json/ARTISTAS.json", "json/RECITALVacio.json" }));
 	}
-	/*
-	 * @Test void testPocosArtistasParaOptimizarObvio() {
-	 * assertThrows(Exception.class, () -> Main.main(new String[] {
-	 * "json/ARTISTAS1Artista.json", "json/RECITAL.json" }) ); }
-	 * 
-	 * @Test void testPocosArtistasParaOptimizarNoObvio() {
-	 * assertThrows(Exception.class, () -> Main.main(new String[] {
-	 * "json/ARTISTASPocos.json", "json/RECITALPocos.json" }) ); }
-	 * 
-	 * @Test void testTodoBien() { assertDoesNotThrow(() -> Main.main(new String[] {
-	 * "json/ARTISTAS.json", "json/RECITAL.json" }) ); }
-	 */
 
 }
